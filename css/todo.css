@@ -1,0 +1,99 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f3f4f6;
+  color: #111827;
+}
+
+.todo {
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  margin-top: 0;
+}
+
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#todo-input {
+  flex: 1;
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#todo-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+button {
+  font: inherit;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+#todo-list {
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.item span {
+  flex: 1;
+  word-break: break-word;
+}
+
+.item.done span {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.item .delete {
+  padding: 0.3rem 0.6rem;
+  background: #dc2626;
+}
+
+.item .delete:hover {
+  background: #b91c1c;
+}
+
+.count {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
