@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+
+    input, button {
+      font-size: 1rem;
+      padding: 8px;
+    }
+
+    #result {
+      margin-top: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Celsius to Fahrenheit</h1>
+
+  <input type="number" id="celsius" placeholder="Degrees Celsius">
+  <button id="convert">Convert</button>
+
+  <p id="result"></p>
+
+  <script>
+    // Pure math: takes a number, returns a number, no DOM
+    function toFahrenheit(celsius) {
+      return celsius * 9 / 5 + 32;
+    }
+
+    // Handles the click: reads the input, converts, shows the result
+    function handleConvert() {
+      const input = document.querySelector('#celsius');
+      const result = document.querySelector('#result');
+
+      // Read the typed value and turn the text into a number
+      const celsius = parseFloat(input.value);
+
+      if (isNaN(celsius)) {
+        result.textContent = 'Please enter a number.';
+        return;
+      }
+
+      const fahrenheit = toFahrenheit(celsius);
+      result.textContent = celsius + '°C is ' + fahrenheit.toFixed(1) + '°F';
+    }
+
+    const button = document.querySelector('#convert');
+    button.addEventListener('click', handleConvert);
+  </script>
+</body>
+</html>
