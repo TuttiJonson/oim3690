@@ -17,19 +17,20 @@
       padding: 8px;
     }
 
-    #result {
+    label {
+      display: block;
       margin-top: 16px;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Celsius to Fahrenheit</h1>
+  <h1>Celsius and Fahrenheit</h1>
 
+  <label for="celsius">Celsius</label>
   <input type="number" id="celsius" placeholder="Degrees Celsius">
-  <button id="convert">Convert</button>
 
-  <p id="result"></p>
+  <label for="fahrenheit">Fahrenheit</label>
+  <input type="number" id="fahrenheit" placeholder="Degrees Fahrenheit">
 
   <script>
     // Pure math: takes a number, returns a number, no DOM
@@ -37,25 +38,40 @@
       return celsius * 9 / 5 + 32;
     }
 
-    // Handles the click: reads the input, converts, shows the result
-    function handleConvert() {
-      const input = document.querySelector('#celsius');
-      const result = document.querySelector('#result');
+    // Pure math: takes a number, returns a number, no DOM
+    function toCelsius(fahrenheit) {
+      return (fahrenheit - 32) * 5 / 9;
+    }
 
-      // Read the typed value and turn the text into a number
-      const celsius = parseFloat(input.value);
+    const celsiusInput = document.querySelector('#celsius');
+    const fahrenheitInput = document.querySelector('#fahrenheit');
+
+    // Typing in Celsius updates Fahrenheit
+    function handleCelsiusInput() {
+      const celsius = parseFloat(celsiusInput.value);
 
       if (isNaN(celsius)) {
-        result.textContent = 'Please enter a number.';
+        fahrenheitInput.value = '';
         return;
       }
 
-      const fahrenheit = toFahrenheit(celsius);
-      result.textContent = celsius + '°C is ' + fahrenheit.toFixed(1) + '°F';
+      fahrenheitInput.value = toFahrenheit(celsius).toFixed(1);
     }
 
-    const button = document.querySelector('#convert');
-    button.addEventListener('click', handleConvert);
+    // Typing in Fahrenheit updates Celsius
+    function handleFahrenheitInput() {
+      const fahrenheit = parseFloat(fahrenheitInput.value);
+
+      if (isNaN(fahrenheit)) {
+        celsiusInput.value = '';
+        return;
+      }
+
+      celsiusInput.value = toCelsius(fahrenheit).toFixed(1);
+    }
+
+    celsiusInput.addEventListener('input', handleCelsiusInput);
+    fahrenheitInput.addEventListener('input', handleFahrenheitInput);
   </script>
 </body>
 </html>
