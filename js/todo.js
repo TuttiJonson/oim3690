@@ -1,5 +1,6 @@
 const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
+const dueInput = document.getElementById('todo-due');
 const list = document.getElementById('todo-list');
 const count = document.getElementById('todo-count');
 
@@ -10,8 +11,9 @@ form.addEventListener('submit', (e) => {
   e.preventDefault();
   const text = input.value.trim();
   if (!text) return;
-  todos.push({ id: Date.now(), text, done: false });
+  todos.push({ id: Date.now(), text, done: false, due: dueInput.value });
   input.value = '';
+  dueInput.value = '';
   save();
   render();
 });
@@ -52,7 +54,17 @@ function render() {
     del.className = 'delete';
     del.textContent = 'Delete';
 
-    li.append(box, span, del);
+    li.append(box, span);
+
+    if (todo.due) {
+      const due = document.createElement('small');
+      due.className = 'due';
+      due.textContent = 'Due ' + new Date(todo.due + 'T00:00:00').toLocaleDateString();
+      if (!todo.done && todo.due < today()) due.classList.add('overdue');
+      li.appendChild(due);
+    }
+
+    li.appendChild(del);
     list.appendChild(li);
   });
 
@@ -60,6 +72,14 @@ function render() {
   count.textContent = todos.length
     ? `${left} of ${todos.length} left`
     : 'No tasks yet';
+}
+
+// Today's date as YYYY-MM-DD in local time, to compare with date input values
+function today() {
+  const d = new Date();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${month}-${day}`;
 }
 
 function save() {

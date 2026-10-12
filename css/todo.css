@@ -75,6 +75,24 @@ button:hover {
   color: #9ca3af;
 }
 
+#todo-due {
+  font: inherit;
+  padding: 0.6rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.item .due {
+  color: #6b7280;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.item .due.overdue {
+  color: #dc2626;
+  font-weight: bold;
+}
+
 .item .delete {
   padding: 0.3rem 0.6rem;
   background: #dc2626;
