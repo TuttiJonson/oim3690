@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discount</title>
+</head>
+<body>
+  <h1>Discount</h1>
+
+  <script>
+    // Returns the discount percent for an order
+    function getDiscount(total, isMember) {
+      if (total >= 100 && isMember) {
+        return 20;
+      } else if (total >= 100 || isMember) {
+        return 10;
+      } else {
+        return 0;
+      }
+    }
+  </script>
+</body>
+</html>
