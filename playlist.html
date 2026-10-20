@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playlist</title>
+</head>
+<body>
+  <h1>Playlist</h1>
+
+  <form id="song-form">
+    <label for="song-input">New song</label>
+    <input type="text" id="song-input" placeholder="Artist - Title" required autocomplete="off">
+    <button type="submit">Add song</button>
+  </form>
+
+  <ul id="Playlist-list"></ul>
+  <p id="song-count"></p>
+
+  <script>
+    // 1. An array of five songs
+    const songs = [
+      "Dua Lipa - New Rules",
+      "The Weeknd - Blinding Lights",
+      "Billie Eilish - Bad Guy",
+      "Adele - Rolling in the Deep",
+      "Calvin Harris - Summer (Remix)",
+    ];
+
+    const list = document.querySelector("#Playlist-list");
+    const count = document.querySelector("#song-count");
+
+    function render() {
+      list.textContent = "";
+
+      // 2. for...of loop that creates an <li> for each song and appends it
+      for (const song of songs) {
+        const li = document.createElement("li");
+        li.textContent = song;
+
+        // 3. if inside the loop that marks any song whose title contains "Remix"
+        if (song.includes("Remix")) {
+          li.textContent = song + " ★";
+          li.style.fontWeight = "bold";
+        }
+
+        list.appendChild(li);
+      }
+
+      count.textContent = songs.length + " songs";
+    }
+
+    // Runs when the Add song button is clicked
+    document.querySelector("#song-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const input = document.querySelector("#song-input");
+      songs.push(input.value.trim());
+      input.value = "";
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
