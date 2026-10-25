@@ -24,6 +24,18 @@ function render() {
       li.style.fontWeight = "bold";
     }
 
+    // Remove button that asks for confirmation first
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "Remove";
+    removeBtn.style.marginLeft = "0.5rem";
+    removeBtn.addEventListener("click", function () {
+      if (confirm('Are you sure you want to remove "' + song + '"?')) {
+        songs.splice(songs.indexOf(song), 1);
+        render();
+      }
+    });
+    li.appendChild(removeBtn);
+
     list.appendChild(li);
   }
 
