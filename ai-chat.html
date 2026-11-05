@@ -10,6 +10,7 @@
   <textarea id="prompt" placeholder="Ask AI anything..."></textarea>
   <button id="askBtn">Ask</button>
   <p id="answer"></p>
+  <p id="cost"></p>
 
   <script>
     // This page works only on your vercel.app link. Live Server and GitHub Pages
@@ -30,7 +31,8 @@
       // A model that reasons first puts a reasoning item ahead of the answer,
       // so find the item of type message, then read its text.
       const message = data.output.find(item => item.type === 'message');
-      return message.content[0].text;
+      // usage holds the token counts and, on OpenRouter, the cost in dollars.
+      return { text: message.content[0].text, usage: data.usage };
     }
 
     const askBtn = document.querySelector('#askBtn');
@@ -42,10 +44,20 @@
       askBtn.disabled = true;
       // A call takes a few seconds, so show something while you wait.
       answerEl.textContent = 'Thinking...';
+      const costEl = document.querySelector('#cost');
+      costEl.textContent = '';
       try {
         // textContent shows the answer as plain text. innerHTML would run any
         // HTML the model wrote.
-        answerEl.textContent = await askAI(prompt);
+        const { text, usage } = await askAI(prompt);
+        answerEl.textContent = text;
+        if (usage) {
+          const cost = usage.cost !== undefined
+            ? ` | Cost: $${Number(usage.cost).toFixed(6)}`
+            : '';
+          costEl.textContent =
+            `Tokens in: ${usage.input_tokens} | out: ${usage.output_tokens}${cost}`;
+        }
       } catch (error) {
         answerEl.textContent = 'Error: ' + error.message;
       } finally {
