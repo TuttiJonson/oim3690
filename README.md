@@ -5,4 +5,5 @@ Mini Project 2: [alix-photo-site](https://github.com/TuttiJonson/alix-photo-site
 Mini Project 3 Vercel: https://art-exhibition-builder.vercel.app
 Mini Project 3 Github: [art-exhibition-builder](https://github.com/TuttiJonson/art-exhibition-builder)
 
+ai-chat: https://oim3690-murex.vercel.app/ai-chat.html. Feature: User cost with the answer 
 Lighting Talk: file:///Users/olympiatamarijonson/Downloads/Anthropic's%2020_%20—%20The%20Public%20Benefit%20Fund.html
