@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Fun</title>
+</head>
+<body>
+  <h1>Fetch Fun</h1>
+  <button id="dog-btn">Get a dog</button>
+  <button id="surprise-btn">Surprise me</button>
+  <div id="result"></div>
+
+  <script>
+    const buttons = document.querySelectorAll("button");
+    const result = document.getElementById("result");
+
+    // Each API: where to fetch, and how to turn its JSON into a DOM node.
+    const apis = [
+      {
+        url: "https://dog.ceo/api/breeds/image/random",
+        toNode: (data) => {
+          const img = document.createElement("img");
+          img.src = data.message;
+          img.alt = "A random dog";
+          img.style.maxWidth = "400px";
+          return img;
+        },
+      },
+      {
+        url: "https://api.adviceslip.com/advice",
+        toNode: (data) => {
+          const p = document.createElement("p");
+          p.textContent = data.slip.advice;
+          return p;
+        },
+      },
+    ];
+
+    // One shared function for every API.
+    async function fetchAndShow(api) {
+      buttons.forEach((b) => (b.disabled = true));
+      result.textContent = "Loading...";
+      try {
+        const response = await fetch(api.url);
+        if (!response.ok) throw new Error("Bad response: " + response.status);
+        const data = await response.json();
+        result.replaceChildren(api.toNode(data));
+      } catch (error) {
+        result.textContent = "Oops! Something went wrong. Please try again.";
+        console.error(error);
+      } finally {
+        buttons.forEach((b) => (b.disabled = false));
+      }
+    }
+
+    document.getElementById("dog-btn").addEventListener("click", () => fetchAndShow(apis[0]));
+    document.getElementById("surprise-btn").addEventListener("click", () => {
+      fetchAndShow(apis[Math.floor(Math.random() * apis.length)]);
+    });
+  </script>
+</body>
+</html>
