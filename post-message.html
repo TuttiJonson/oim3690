@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Message</title>
+</head>
+<body>
+  <h1>Post Message</h1>
+  <script>
+async function postMessage(text) {
+  const response = await fetch("https://oim.zhili.dev/message", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Token": "TuttiJonson"
+    },
+    body: JSON.stringify({ message: text })
+  });
+  console.log(await response.json());
+}
+postMessage("Hello from TuttiJonson!");
+  </script>
+</body>
+</html>
